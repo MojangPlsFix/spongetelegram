@@ -1,0 +1,15 @@
+plugins {
+    id 'org.spongepowered.plugin' version '0.8.1'
+}
+
+group = pluginGroup
+version = pluginVersion
+
+dependencies {
+    compile 'org.spongepowered:spongeapi:7.0.0'
+    compile 'org.telegram:telegrambots:4.1'
+    compile group: 'ninja.leaping.configurate', name: 'configurate-hocon', version: '3.3'
+
+}
+
+sponge.plugin.id = pluginId
