@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="Gradle: com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:2.8.7">
-    <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/jaxrs/jackson-jaxrs-base/2.8.7/jackson-jaxrs-base-2.8.7.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
