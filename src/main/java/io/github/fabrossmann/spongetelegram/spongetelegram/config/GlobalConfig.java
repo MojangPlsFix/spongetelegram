@@ -8,10 +8,10 @@ import java.util.List;
 
 @ConfigSerializable
 public class GlobalConfig {
-    public GlobalConfig(){
-        telegramConfig = new ArrayList<>();
-    }
-
     @Setting
     public List<TelegramConfig> telegramConfig;
+
+    public GlobalConfig() {
+        telegramConfig = new ArrayList<>();
+    }
 }

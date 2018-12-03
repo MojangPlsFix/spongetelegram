@@ -7,9 +7,8 @@ version = pluginVersion
 
 dependencies {
     compile 'org.spongepowered:spongeapi:7.0.0'
-    compile 'org.telegram:telegrambots:4.1'
     compile group: 'ninja.leaping.configurate', name: 'configurate-hocon', version: '3.3'
-
+    implementation 'com.google.code.gson:gson:2.8.5'
 }
 
 sponge.plugin.id = pluginId

@@ -3,7 +3,6 @@ package io.github.fabrossmann.spongetelegram.spongetelegram.config;
 import com.google.common.reflect.TypeToken;
 import io.github.fabrossmann.spongetelegram.spongetelegram.Spongetelegram;
 import ninja.leaping.configurate.ConfigurationNode;
-import ninja.leaping.configurate.ConfigurationOptions;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
@@ -23,19 +22,19 @@ public class ConfigHandler {
         Path configDir = instance.getConfigDir();
 
         if (!Files.exists(configDir)) {
-                Files.createDirectories(configDir);
+            Files.createDirectories(configDir);
         }
 
         Path configFile = Paths.get(configDir + "/spongetelegram.conf");
         ConfigurationLoader<CommentedConfigurationNode> loader = HoconConfigurationLoader.builder().setPath(configFile).build();
-        ConfigurationNode rootNode = loader.createEmptyNode(ConfigurationOptions.defaults());
+        ConfigurationNode rootNode = loader.load();
 
         GlobalConfig config = rootNode.getValue(TypeToken.of(GlobalConfig.class), new GlobalConfig());
 
         if (!Files.exists(configFile)) {
             Files.createFile(configFile);
 
-            TelegramConfig telegramConfig= new TelegramConfig();
+            TelegramConfig telegramConfig = new TelegramConfig();
             telegramConfig.initializeDefaults();
 
             config.telegramConfig.add(telegramConfig);
@@ -43,11 +42,21 @@ public class ConfigHandler {
         }
 
         rootNode.setValue(TypeToken.of(GlobalConfig.class), config);
-
         loader.save(rootNode);
         logger.info("[SpongeTelegram] Config loaded!");
-
         return config;
     }
 
+    public static void save(GlobalConfig config) throws IOException, ObjectMappingException {
+        Spongetelegram instance = Spongetelegram.getInstance();
+        Logger logger = instance.getLogger();
+        Path configDir = instance.getConfigDir();
+
+        Path configFile = Paths.get(configDir + "/spongetelegram.conf");
+        ConfigurationLoader<CommentedConfigurationNode> loader = HoconConfigurationLoader.builder().setPath(configFile).build();
+        ConfigurationNode rootNode = loader.load();
+
+        rootNode.setValue(TypeToken.of(GlobalConfig.class), config);
+
+    }
 }
