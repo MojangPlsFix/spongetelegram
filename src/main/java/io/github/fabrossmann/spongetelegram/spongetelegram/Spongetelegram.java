@@ -1,12 +1,14 @@
 package io.github.fabrossmann.spongetelegram.spongetelegram;
 
 import com.google.inject.Inject;
+import io.github.fabrossmann.spongetelegram.spongetelegram.commands.CommandTelegram;
 import io.github.fabrossmann.spongetelegram.spongetelegram.config.ConfigHandler;
 import io.github.fabrossmann.spongetelegram.spongetelegram.config.GlobalConfig;
 import io.github.fabrossmann.spongetelegram.spongetelegram.telegram.Telegram;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
+import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
@@ -14,6 +16,7 @@ import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.event.game.state.GameStoppingServerEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.scheduler.Task;
+import org.spongepowered.api.text.Text;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -68,6 +71,13 @@ public class Spongetelegram {
                 }
         ).submit(this);
 
+        CommandSpec myCommandSpec = CommandSpec.builder()
+                .description(Text.of("Special Telegram Command"))
+                .permission("spigottelegram.command.sword")
+                .executor(new CommandTelegram())
+                .build();
+
+        Sponge.getCommandManager().register(instance, myCommandSpec, "telegram", "spongetelegram");
         logger.info("[SpongeTelegram] started!");
     }
 
